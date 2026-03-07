@@ -258,24 +258,30 @@ std::vector<Embedding> embed_batch(const std::vector<std::string>& texts,
 // ---------------------------------------------------------------------------
 
 float cosine_similarity(const Embedding& a, const Embedding& b) {
+    if (a.size() != b.size())
+        throw std::invalid_argument("cosine_similarity: dimension mismatch ("
+            + std::to_string(a.size()) + " vs " + std::to_string(b.size()) + ")");
     float dot = 0.0f, na = 0.0f, nb = 0.0f;
-    size_t n = std::min(a.size(), b.size());
-    for (size_t i = 0; i < n; ++i) { dot += a[i]*b[i]; na += a[i]*a[i]; nb += b[i]*b[i]; }
+    for (size_t i = 0; i < a.size(); ++i) { dot += a[i]*b[i]; na += a[i]*a[i]; nb += b[i]*b[i]; }
     float denom = std::sqrt(na) * std::sqrt(nb);
     return denom > 0.0f ? dot / denom : 0.0f;
 }
 
 float dot_product(const Embedding& a, const Embedding& b) {
+    if (a.size() != b.size())
+        throw std::invalid_argument("dot_product: dimension mismatch ("
+            + std::to_string(a.size()) + " vs " + std::to_string(b.size()) + ")");
     float s = 0.0f;
-    size_t n = std::min(a.size(), b.size());
-    for (size_t i = 0; i < n; ++i) s += a[i] * b[i];
+    for (size_t i = 0; i < a.size(); ++i) s += a[i] * b[i];
     return s;
 }
 
 float euclidean_distance(const Embedding& a, const Embedding& b) {
+    if (a.size() != b.size())
+        throw std::invalid_argument("euclidean_distance: dimension mismatch ("
+            + std::to_string(a.size()) + " vs " + std::to_string(b.size()) + ")");
     float s = 0.0f;
-    size_t n = std::min(a.size(), b.size());
-    for (size_t i = 0; i < n; ++i) { float d = a[i]-b[i]; s += d*d; }
+    for (size_t i = 0; i < a.size(); ++i) { float d = a[i]-b[i]; s += d*d; }
     return std::sqrt(s);
 }
 
