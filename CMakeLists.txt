@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(CURL REQUIRED)
 
-foreach(ex basic_embed vector_store)
+foreach(ex basic_embed vector_store semantic_search)
     add_executable(${ex} examples/${ex}.cpp)
     target_include_directories(${ex} PRIVATE include)
     target_link_libraries(${ex} CURL::libcurl)

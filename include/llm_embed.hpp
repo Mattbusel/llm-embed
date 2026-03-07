@@ -1,4 +1,5 @@
 #pragma once
+#define NOMINMAX
 
 // llm_embed.hpp -- Zero-dependency single-header C++ text embeddings,
 // cosine similarity, and nearest-neighbor vector search via OpenAI API.
